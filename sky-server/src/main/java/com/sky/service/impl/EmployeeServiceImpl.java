@@ -90,6 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 分页查询
+     *
      * @param employeePageQueryDTO
      * @return
      */
@@ -109,6 +110,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 启用禁用员工账号
+     *
      * @param status
      * @param id
      */
@@ -120,6 +122,31 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
 
         employeeMapper.update(employee);
+    }
+
+
+    /**
+     * 根据id查询员工
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Employee getById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("****");//防止密码泄露
+        return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO, employee);  // 对象属性拷贝
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId()); //从进程中读取存入的用户id
+
+        employeeMapper.update(employee);  // update接口前面已经实现
     }
 
 }
