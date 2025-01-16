@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service        // 放入IOC容器中
 @Slf4j          // 日志注解
@@ -113,6 +114,16 @@ public class CategoryServiceImpl implements CategoryService {
                 .build();
 
         categoryMapper.update(category);   // 前面已经定义
+    }
+
+    /**
+     * 根据类型查询所有启用的分类
+     * @param type
+     * @return
+     */
+    @Override
+    public List<Category> list(Integer type) {
+        return categoryMapper.list(type);
     }
 
 
