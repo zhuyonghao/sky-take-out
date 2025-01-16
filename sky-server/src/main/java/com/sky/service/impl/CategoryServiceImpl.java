@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * 新增菜品分类
+     *
      * @param categoryDTO
      */
     @Override
@@ -65,18 +66,35 @@ public class CategoryServiceImpl implements CategoryService {
         // 查询当前分类是否关联了菜品，如果关联了就抛出业务异常
         Integer count = dishMapper.countByCategoryId(id);
 
-        if (count > 0){
+        if (count > 0) {
             // 分类下有菜品
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
         }
 
         count = setmealMapper.countByCategoryId(id);
 
-        if (count > 0){
+        if (count > 0) {
             // 分类下有套餐
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
         }
 
         categoryMapper.deleteById(id);
+    }
+
+    /**
+     * 修改菜品种类
+     *
+     * @param categoryDTO
+     */
+    @Override
+    public void update(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO, category); // 对象属性拷贝
+
+        // 设置对象其他属性
+        category.setUpdateTime(LocalDateTime.now());
+        category.setUpdateUser(BaseContext.getCurrentId()); // 从线程中读取用户ID
+
+        categoryMapper.update(category);
     }
 }
