@@ -30,4 +30,11 @@ public interface CategoryService {
      * @param categoryDTO
      */
     void update(CategoryDTO categoryDTO);
+
+    /**
+     * 菜品启用或禁用状态
+     * @param status
+     * @param id
+     */
+    void startOrStop( Integer status, Long id);
 }
