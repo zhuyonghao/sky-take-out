@@ -46,10 +46,10 @@ public class CategoryServiceImpl implements CategoryService {
         // 设置默认状态
         category.setStatus(StatusConstant.DISABLE);
         // 设置创建时间、修改时间、创建人、修改人
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());  // 从线程中读取变量
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());  // 从线程中读取变量
+//        category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.insert(category);
     }
@@ -93,20 +93,21 @@ public class CategoryServiceImpl implements CategoryService {
         BeanUtils.copyProperties(categoryDTO, category); // 对象属性拷贝
 
         // 设置对象其他属性
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId()); // 从线程中读取用户ID
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId()); // 从线程中读取用户ID
 
         categoryMapper.update(category);
     }
 
     /**
      * 启用和禁用分类
+     *
      * @param status
      * @param id
      */
     @Override
     public void startOrStop(Integer status, Long id) {
-        Category category= Category.builder()
+        Category category = Category.builder()
                 .status(status)
                 .id(id)
                 .updateTime(LocalDateTime.now())
@@ -118,6 +119,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * 根据类型查询所有启用的分类
+     *
      * @param type
      * @return
      */

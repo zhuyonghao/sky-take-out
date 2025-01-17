@@ -79,11 +79,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 设置密码并加密
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
         // 设置创建时间和修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        // 设置当前记录创建人id和修改人id
-        employee.setCreateUser(BaseContext.getCurrentId()); //从线程中获取当前用户id
-        employee.setUpdateUser(BaseContext.getCurrentId());
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//        // 设置当前记录创建人id和修改人id
+//        employee.setCreateUser(BaseContext.getCurrentId()); //从线程中获取当前用户id
+//        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
@@ -143,8 +143,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);  // 对象属性拷贝
 
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId()); //从进程中读取存入的用户id
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateUser(BaseContext.getCurrentId()); //从进程中读取存入的用户id
 
         employeeMapper.update(employee);  // update接口前面已经实现
     }
