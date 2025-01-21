@@ -14,4 +14,19 @@
             #{dishId}
         </foreach>
     </select>
+    <select id="pageQuery" resultType="com.sky.vo.SetmealVO">
+        select s.*, c.name categoryName from setmeal s left outer join category c on s.category_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                s.name like concat('%', #{name}, '%')
+            </if>
+            <if test="status != null">
+                and s.status = #{status}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+        </where>
+        order by s.create_time desc
+    </select>
 </mapper>
